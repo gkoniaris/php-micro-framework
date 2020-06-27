@@ -41,6 +41,7 @@ class Router extends Singleton{
 
         return static::$instance;
     }
+
     private function initializeRouterItem($controllerText, $uri, &$middlewares = [], $requestMethod)
     {
         $controller = $this->getControllerName($controllerText);
