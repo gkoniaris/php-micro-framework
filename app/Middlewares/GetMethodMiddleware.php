@@ -1,6 +1,7 @@
 <?php
 namespace App\Middlewares;
 use App\Singletons\Request;
+
 class GetMethodMiddleware extends BaseMiddleware{
 
     protected $request;
@@ -12,7 +13,7 @@ class GetMethodMiddleware extends BaseMiddleware{
 
     protected function handle(){
         try{
-            if ($this->request->getMethod() !== 'GET') {
+            if ($this->request->method() !== 'GET') {
                 throw new \Exception('You can only use get method for this request');
             }
         }

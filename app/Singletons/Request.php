@@ -28,21 +28,16 @@ class Request extends Singleton
     /**
      * Getter method
      */
-    public function getMethod(){
-        return $this->method;
+    public function method(){
+        return static::getInstance()->method;
     }
 
     /**
      * Getter method
      */
-    public function getData(){
-        return $this->data;
+    public function data(){
+        return static::getInstance()->data;
     }
-
-    public function setData($key, $data){
-        return $this->data->{$key} = $data;
-    }
-
 
     /**
      * Terminates a request by returning a human readable message to the user

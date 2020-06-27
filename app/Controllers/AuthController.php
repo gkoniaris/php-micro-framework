@@ -14,11 +14,11 @@ class AuthController extends BaseController
     }
     public function login()
     {
-        $data = Request::getInstance()->getData();
+        $data = Request::data();
         $logged = $this->user->login($data);
 
         if($logged){
-            $responseData = ['status'=>'sucess', 'message'=>'You have been successfully logged in', 'redirectUrl' => '/dashboard'];
+            $responseData = ['status'=>'sucess', 'message'=>'You have been successfully logged in'];
             return Response::json($responseData);
         }
 

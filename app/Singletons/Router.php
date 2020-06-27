@@ -65,10 +65,10 @@ class Router extends Singleton{
     {
         switch ($method){
             case 'GET':
-                // array_unshift($middlewares, 'App\Middlewares\MiddlewareName');
+                array_unshift($middlewares, 'App\Middlewares\GetMethodMiddleware');
                 break;
             case 'POST':
-                // array_unshift($middlewares, 'App\Middlewares\MiddlewareName');
+                array_unshift($middlewares, 'App\Middlewares\PostMethodMiddleware');
                 break;
         }
         try{
