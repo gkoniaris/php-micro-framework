@@ -5,7 +5,7 @@ $classesArray = [
     '../app/Singletons/Request.php',
     '../app/Singletons/Response.php',
     '../app/Singletons/Router.php',
-    '../app/Handlers/Database.php',
+    '../app/Singletons/Database.php',
     '../app/Middlewares/BaseMiddleware.php',
     '../app/Middlewares/Authenticated.php',
     '../app/Middlewares/GetMethodMiddleware.php',

@@ -1,19 +1,20 @@
 <?php
 namespace App\Classes;
 
-use \App\Handlers\Database;
+use App\Singletons\Database;
 
 class User{
 
     public function __construct(){
-        $this->db = new Database();
     }
 
     public function login($data)
     {
-        $username = $data->username;
+        $email = $data->email;
         $password = $data->password;
-        $user = $this->retrieveUser($username, $password);
+
+        $user = $this->retrieveUser($email, $password);
+        
         if($user){
             $this->saveSession($user['id']);
             return true;
@@ -21,9 +22,9 @@ class User{
         return false;
     }
 
-    private function retrieveUser($username, $password){
-        $initialStmt = $this->db->connection->prepare('SELECT * FROM users WHERE username = ?');
-        $initialStmt->execute([$username]);
+    private function retrieveUser($email, $password){
+        $initialStmt = Database::getInstance()->query()->prepare('SELECT * FROM users WHERE email = ?');
+        $initialStmt->execute([$email]);
         $initialUser = $initialStmt->fetch();
 
         if(!$initialUser){
@@ -32,8 +33,8 @@ class User{
 
         $passwordHashed = hash ('sha256' , $initialUser['salt'] . '.' . $password);
 
-        $stmt = $this->db->connection->prepare('SELECT * FROM users WHERE username = ? AND password = ?');
-        $stmt->execute([$username, $passwordHashed]);
+        $stmt = Database::getInstance()->query()->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
+        $stmt->execute([$email, $passwordHashed]);
         $user = $stmt->fetch();
 
         return $user;
@@ -47,7 +48,7 @@ class User{
         $uniqueId = uniqid();
         $_SESSION['unique_id'] = $uniqueId;
         
-        $stmt = $this->db->connection->prepare("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
+        $stmt = Database::getInstance()->query()->prepare("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
         $stmt->execute([$userId, $uniqueId]);
     }
 }
