@@ -19,6 +19,7 @@ class User{
             $this->saveSession($user['id']);
             return true;
         }
+
         return false;
     }
 
@@ -45,10 +46,11 @@ class User{
         session_start();
         setcookie(session_name(),session_id(),time()+(60*60), '/');
 
-        $uniqueId = uniqid();
+        $uniqueId = uniqid('', TRUE);
         $_SESSION['unique_id'] = $uniqueId;
         
         $stmt = Database::query()->prepare("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
+
         $stmt->execute([$userId, $uniqueId]);
     }
 }
