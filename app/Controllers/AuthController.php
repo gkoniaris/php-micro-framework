@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Classes\User;
 use App\Singletons\Request;
 
-class LoginController extends BaseController
+class AuthController extends BaseController
 {
     protected $user;
     public function __construct(){

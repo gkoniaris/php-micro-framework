@@ -12,7 +12,7 @@ $classesArray = [
     '../app/Middlewares/PostMethodMiddleware.php',
     '../app/Classes/User.php',
     '../app/Controllers/BaseController.php',
-    '../app/Controllers/IndexController.php',
+    '../app/Controllers/AuthController.php',
     '../app/Controllers/LoginController.php'
 ];
 
