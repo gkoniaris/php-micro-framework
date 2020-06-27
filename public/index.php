@@ -13,7 +13,7 @@ $classesArray = [
     '../app/Classes/User.php',
     '../app/Controllers/BaseController.php',
     '../app/Controllers/AuthController.php',
-    '../app/Controllers/LoginController.php'
+    '../app/Controllers/AuthController.php'
 ];
 
 foreach($classesArray as $item){

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Classes\User;
 use App\Singletons\Request;
+use App\Singletons\Response;
 
 class AuthController extends BaseController
 {
@@ -18,12 +19,11 @@ class AuthController extends BaseController
 
         if($logged){
             $responseData = ['status'=>'sucess', 'message'=>'You have been successfully logged in', 'redirectUrl' => '/dashboard'];
-            echo json_encode($responseData);
-            return;
+            return Response::json($responseData);
         }
 
         $responseData = ['status'=>'failure', 'message'=>'Please enter valid credentials'];
 
-        echo json_encode($responseData);
+        return Response::json($responseData);
     }
 }

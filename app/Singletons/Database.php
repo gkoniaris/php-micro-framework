@@ -16,11 +16,6 @@ class Database extends Singleton {
         static::$connection = $this->initializeConnection();
     }
 
-    public function query()
-    {
-        return static::$connection;
-    }
-
     private function initializeConnection()
     {
         global $settings;
@@ -41,5 +36,10 @@ class Database extends Singleton {
         }
 
         return static::$instance;
+    }
+
+    public function query()
+    {
+        return static::getInstance()::$connection;
     }
 }

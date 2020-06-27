@@ -23,7 +23,7 @@ class User{
     }
 
     private function retrieveUser($email, $password){
-        $initialStmt = Database::getInstance()->query()->prepare('SELECT * FROM users WHERE email = ?');
+        $initialStmt = Database::query()->prepare('SELECT * FROM users WHERE email = ?');
         $initialStmt->execute([$email]);
         $initialUser = $initialStmt->fetch();
 
@@ -33,7 +33,7 @@ class User{
         
         $passwordHashed = hash('sha256' , $initialUser['salt'] . '.' . $password);
 
-        $stmt = Database::getInstance()->query()->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
+        $stmt = Database::query()->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
         $stmt->execute([$email, $passwordHashed]);
         $user = $stmt->fetch();
 
@@ -48,7 +48,7 @@ class User{
         $uniqueId = uniqid();
         $_SESSION['unique_id'] = $uniqueId;
         
-        $stmt = Database::getInstance()->query()->prepare("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
+        $stmt = Database::query()->prepare("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
         $stmt->execute([$userId, $uniqueId]);
     }
 }
