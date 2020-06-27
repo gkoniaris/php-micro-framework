@@ -4,6 +4,7 @@ use App\Singletons\Request;
 class PostMethodMiddleware extends BaseMiddleware{
 
     protected $request;
+    
     public function __construct(Request $request){
         $this->request = $request;
         parent::__construct();

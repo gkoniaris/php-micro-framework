@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Classes\User;
 use App\Singletons\Request;
 

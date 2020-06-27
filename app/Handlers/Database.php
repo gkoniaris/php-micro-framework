@@ -3,6 +3,7 @@
 namespace App\Handlers;
 
 class Database{
+    
     public $connection;
 
     public function __construct()

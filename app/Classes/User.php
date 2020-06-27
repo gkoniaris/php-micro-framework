@@ -30,8 +30,8 @@ class User{
         if(!$initialUser){
             return false;
         }
-
-        $passwordHashed = hash ('sha256' , $initialUser['salt'] . '.' . $password);
+        
+        $passwordHashed = hash('sha256' , $initialUser['salt'] . '.' . $password);
 
         $stmt = Database::getInstance()->query()->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
         $stmt->execute([$email, $passwordHashed]);
