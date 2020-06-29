@@ -24,14 +24,19 @@ class Database extends Singleton {
         return static::$instance;
     }
 
-
     private function initializeConnection()
     {
         global $settings;
         
         try{
             $dsn = "mysql:host=" . $settings['DB_HOST'] . ";dbname=" . $settings['DB_NAME'];
-            $connection = new \PDO($dsn, $settings['DB_USERNAME'], $settings['DB_PASSWORD'], null);
+            
+            $connection = new \PDO($dsn, $settings['DB_USERNAME'], $settings['DB_PASSWORD'], [
+                \PDO::ATTR_EMULATE_PREPARES => false,
+                \PDO::MYSQL_ATTR_DIRECT_QUERY => false,
+                \PDO::ATTR_ERRMODE=> \PDO::ERRMODE_EXCEPTION
+            ]);
+
             return $connection;
         }
         catch(\Exception $e){
@@ -39,9 +44,35 @@ class Database extends Singleton {
         }
     }
 
-
-    public static function query()
+    public static function select($query, $arguments = [])
     {
-        return static::getInstance()::$connection;
+        $initialStmt = static::getInstance()::$connection->prepare($query);
+        $initialStmt->execute($arguments);
+
+        return $initialStmt->fetch();
     }
+
+    public static function selectAll($query, $arguments = [])
+    {
+        $initialStmt = static::getInstance()::$connection->prepare($query);
+        $initialStmt->execute($arguments);
+
+        return $initialStmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function insert($query, $arguments = [])
+    {
+        $initialStmt = static::getInstance()::$connection->prepare($query);
+        return $initialStmt->execute($arguments);
+    }
+
+    public static function create($query)
+    {
+        return static::getInstance()::$connection->exec($query);
+    }
+
+    public static function execute($query) 
+    {
+        return static::getInstance()::$connection->exec($query);
+    } 
 }

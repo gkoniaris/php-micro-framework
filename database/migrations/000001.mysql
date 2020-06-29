@@ -10,4 +10,4 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

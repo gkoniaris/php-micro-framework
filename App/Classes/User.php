@@ -6,7 +6,8 @@ use App\Singletons\Database;
 class User{
 
     public function __construct(){
-    }
+    
+    }    
 
     public function login($data)
     {
@@ -23,10 +24,9 @@ class User{
         return false;
     }
 
-    private function retrieveUser($email, $password){
-        $initialStmt = Database::query()->prepare('SELECT * FROM users WHERE email = ?');
-        $initialStmt->execute([$email]);
-        $initialUser = $initialStmt->fetch();
+    private function retrieveUser($email, $password)
+    {
+        $initialUser = Database::select('SELECT * FROM users WHERE email = ?', [$email]);
 
         if(!$initialUser){
             return false;
@@ -34,23 +34,20 @@ class User{
         
         $passwordHashed = hash('sha256' , $initialUser['salt'] . '.' . $password);
 
-        $stmt = Database::query()->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
-        $stmt->execute([$email, $passwordHashed]);
-        $user = $stmt->fetch();
+        $user = Database::select('SELECT * FROM users WHERE email = ? AND password = ?', [$email, $passwordHashed]);
 
         return $user;
     }
 
     private function saveSession($userId)
     {
-        session_start();
-        setcookie(session_name(),session_id(),time()+(60*60), '/');
-
-        $uniqueId = uniqid('', TRUE);
+        session_start([
+            'cookie_lifetime' => 86400,
+        ]);
+     
+        $uniqueId = uniqid('', TRUE); // Add true for more entropy
         $_SESSION['unique_id'] = $uniqueId;
         
-        $stmt = Database::query()->prepare("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
-
-        $stmt->execute([$userId, $uniqueId]);
+        $stmt = Database::insert("INSERT INTO sessions(user_id, session_id, expires_at) VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL 1 DAY)", [$userId, $uniqueId]);
     }
 }
