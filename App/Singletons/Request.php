@@ -28,14 +28,14 @@ class Request extends Singleton
     /**
      * Getter method
      */
-    public function method(){
+    public static function method(){
         return static::getInstance()->method;
     }
 
     /**
      * Getter method
      */
-    public function data(){
+    public static function data(){
         return static::getInstance()->data;
     }
 
@@ -68,8 +68,8 @@ class Request extends Singleton
 
     private function getCurrentUri()
     {
-        $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
-        $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath));
+        $uri = $_SERVER['REQUEST_URI'];
+
         if (strstr($uri, '?')) $uri = substr($uri, 0, strpos($uri, '?'));
         $uri = '/' . trim($uri, '/');
         return $uri;

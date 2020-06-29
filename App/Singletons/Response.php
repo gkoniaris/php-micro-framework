@@ -22,7 +22,7 @@ class Response extends Singleton{
         return static::$instance;
     }
 
-    public function json($data) {
+    public static function json($data) {
         header('Content-Type: application/json');
 
         echo json_encode($data);

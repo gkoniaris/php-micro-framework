@@ -1,5 +1,7 @@
 <?php
+
 global $settings;
+
 $settings = [];
 $settings['DB_HOST'] = getenv("DB_HOST");
 $settings['DB_USERNAME'] = getenv("DB_USERNAME");

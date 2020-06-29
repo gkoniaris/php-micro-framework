@@ -40,7 +40,7 @@ class Database extends Singleton {
     }
 
 
-    public function query()
+    public static function query()
     {
         return static::getInstance()::$connection;
     }
