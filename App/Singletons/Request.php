@@ -1,6 +1,7 @@
 <?php
 namespace App\Singletons;
 use App\Patterns\Singleton;
+
 class Request extends Singleton
 {
     private $data;

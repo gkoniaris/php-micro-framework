@@ -12,12 +12,11 @@ class GetMethodMiddleware extends BaseMiddleware{
     }
 
     protected function handle(){
-        try{
+        try {
             if ($this->request->method() !== 'GET') {
                 throw new \Exception('You can only use get method for this request');
             }
-        }
-        catch(\Exception $e) {
+        } catch(\Exception $e) {
             $this->request->terminateRequestWithException($e);
         }
     }

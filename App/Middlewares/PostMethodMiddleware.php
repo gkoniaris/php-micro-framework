@@ -11,12 +11,11 @@ class PostMethodMiddleware extends BaseMiddleware{
     }
 
     protected function handle(){
-        try{
+        try {
             if ($this->request->method() !== 'POST') {
                 throw new \Exception('You can only use post method for this request');
             }
-        }
-        catch(\Exception $e) {
+        } catch(\Exception $e) {
             $this->request->terminateRequestWithException($e);
         }
     }

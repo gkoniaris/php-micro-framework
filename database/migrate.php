@@ -22,7 +22,7 @@ try {
     foreach($migrationFiles as $file) {
         if ($file === '..' || $file === '.') continue;
         
-        $migrationName = str_replace('.mysql', '', $file);
+        $migrationName = str_replace('.sql', '', $file);
 
         $migrationHasRun = array_filter($migrations, function($migration) use ($file, $migrationName) {
             return $migration['migration'] === $migrationName && $migration['run'] === 1;
