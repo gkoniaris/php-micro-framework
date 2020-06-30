@@ -5,9 +5,9 @@ CREATE TABLE `users` (
   `last_name` varchar(60) DEFAULT NULL,
   `password` varchar(64) NOT NULL,
   `salt` varchar(20) NOT NULL,
-  `role` enum('admin','employee') NOT NULL DEFAULT 'employee',
+  `role` enum('user') NOT NULL DEFAULT 'user',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;

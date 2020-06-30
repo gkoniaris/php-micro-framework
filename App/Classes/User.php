@@ -13,7 +13,7 @@ class User{
     {
         $email = $data->email;
         $password = $data->password;
-
+        
         $user = $this->retrieveUser($email, $password);
         
         if($user){
